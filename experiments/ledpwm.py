@@ -22,11 +22,24 @@ try:
     while (True):
         #change to raw_input if using python 2
         duty_s = input("Enter Brightness (0 to 100 or x to exit):")
-        #TODO put in a test here to check the input is a number
+        if duty_s == 'x':
+           break
+        #The following checks the input is a number
         #and the number is between 0 - 100
         #if the user inputs an x exit
-        duty = int (duty_s)
-        pwm_led.ChangeDutyCycle(duty)
+        try:
+            duty = int (duty_s)
+            isNumber = True
+        except ValueError:
+          print('The provided value is not a number')
+          isNumber = False
+        #This code shows python conditionals use shortcut evaluation
+        #if the code calls duty first it throws an exception
+        #if duty is not a number.8
+        if not isNumber or duty < 0 or duty > 100:
+            print("The input has to be between 0 and 100")
+        else:
+            pwm_led.ChangeDutyCycle(duty)
 finally:
     print ("Cleaning Up")
     GPIO.cleanup()
