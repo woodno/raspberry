@@ -5,8 +5,10 @@ GPIO.setup(18, GPIO.OUT)
 try:
     while (True):
         GPIO.output(18, True)
+        print ('Im on')
         time.sleep(0.5)
         GPIO.output(18, False)
+        print ('Im off')
         time.sleep(0.5)
 finally:
     print ("Cleaning Up")
