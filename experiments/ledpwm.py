@@ -11,7 +11,7 @@ GPIO.setmode(GPIO.BCM)
 led_pin = 18
 GPIO.setup(led_pin, GPIO.OUT)
 
-#This is setting the phase frequency to 500Hz
+#This is setting the pulse frequency to 500Hz
 #Actually this is kind of true but the accuracy falls off
 #as the frequency rises.
 pwm_led = GPIO.PWM(led_pin, 500)
