@@ -16,7 +16,6 @@ def buzz (pitch, duration):
     print ("Cycles are " + str(cycles))
     #range function returns a sequence of numbers
     for i in range (cycles):
-        #print ("Range (cycles) returns " + range (cycles))
         GPIO.output (buzzer_pin, True)
         time.sleep(delay)
         GPIO.output (buzzer_pin, False)
