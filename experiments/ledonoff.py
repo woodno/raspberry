@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+#One of two numbering modes you can use and the one most used.
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.OUT)
 try:
