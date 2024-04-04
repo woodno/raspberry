@@ -20,7 +20,7 @@ from gpiozero import MCP3008
 #A voltage divider should be used to ensure the voltage is not exceeded.
 
 import time
-analog_input = MCP3008(channel=0,clock_pin=11,mosi_pin=10,
+analog_input = MCP3008(channel=1,clock_pin=11,mosi_pin=10,
                        miso_pin=9,select_pin=8)
 while True:
     #value is between 0 - 1
