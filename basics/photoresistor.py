@@ -12,8 +12,8 @@ from gpiozero import MCP3008
 #Pin 11 DIn -MOSI
 #Pin 10 CS/SHDN -CE0
 #Pin 9 DGND - GND
-#Pin 1 Ch 0 (Top left pin) - Analog input being measured.
-#For the test a 3.3 V input was output to an outside pin of a pot
+#Pin 2 Ch 1 (Top left pin) - Analog input being measured.  
+#Voltage Divided with 10kOhm resistor
 #The middle pin of the pot was connected to the Channel 0 input
 #The other outside pin was put to a ground.
 #Maximum voltage input on channel 0-7 is 3.3V
