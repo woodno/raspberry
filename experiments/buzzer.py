@@ -1,8 +1,8 @@
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import time
 buzzer_pin = 18
-GPIO.setmode (GPIO.BCM)
-GPIO.setup (buzzer_pin, GPIO.OUT)
+#GPIO.setmode (GPIO.BCM)
+#GPIO.setup (buzzer_pin, GPIO.OUT)
 def buzz (pitch, duration):
     print ("Pitch is " + str(pitch) + "Hz")
     print ("Duration is " + str(duration) + "seconds")
@@ -16,9 +16,9 @@ def buzz (pitch, duration):
     print ("Cycles are " + str(cycles))
     #range function returns a sequence of numbers
     for i in range (cycles):
-        GPIO.output (buzzer_pin, True)
+       #GPIO.output (buzzer_pin, True)
         time.sleep(delay)
-        GPIO.output (buzzer_pin, False)
+        #GPIO.output (buzzer_pin, False)
         time.sleep(delay)
 try:
     while True:
@@ -33,5 +33,5 @@ try:
         
 finally:
     print ("Cleaning Up")
-    GPIO.cleanup()
+    #GPIO.cleanup()
     print ("Done Cleaning Up")

@@ -7,6 +7,7 @@ GPIO.setup (buzzer_pin, GPIO.OUT)
 
 def buzz (pitch, duration):
     pwm_buzz = GPIO.PWM(buzzer_pin, pitch)
+    #50 means it is on 50% of the time.
     pwm_buzz.start(50)
     print ("Pitch is " + str(pitch) + "Hz")
     print ("Duration is " + str(duration) + "seconds")

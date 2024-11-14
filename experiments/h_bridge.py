@@ -25,6 +25,8 @@ try:
     while (True):
         #change to raw_input if using python 2
         cmd = input("Command, f/r 0..9, Eg f5 :")
+        #We are using the fact that a string is a list of chars and can be accessed using array notation
+        #Strings are immutable and cannot be altered this way
         print (cmd[0])
         print (cmd[1])
         direction =cmd[0]

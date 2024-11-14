@@ -1,20 +1,14 @@
-#Week 4 variables work.
+#Variables, datatypes, comments
+#This is a comment 
+print ("Starting program")
+#variables
+r = "5"
 
+print ("The value of r is " + r)
 
-x = "awesome"
+x = 7
+print ("the value of x is " + str(x))
 
-#Example 1 Scope of a non-global/global variable
-def myfunc():
-    x = "great"
-    print("Python is " + x)
-    
-def myfunc2():
-    global x
-    x = "great"
-    print("Python is " + x)
-    
-myfunc()
-print("Python is " + x)
-myfunc2()
-print("Python is " + x)
-
+#init a var caalled y make it equal 25
+#init a variable called u make it 6
+# print out y+u, y-u , y*u and y/u

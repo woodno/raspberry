@@ -8,16 +8,16 @@ import time
 #what-is-the-difference-between-board-and-bcm-for-gpio-pin-numbering
 GPIO.setmode(GPIO.BCM)
 
-led_pin = 18
-GPIO.setup(led_pin, GPIO.OUT)
+motor_pin = 18
+GPIO.setup(motor_pin, GPIO.OUT)
 
 #This is setting the phase frequency to 500Hz
 #Actually this is kind of true but the accuracy falls off
 #as the frequency rises.
-pwm_led = GPIO.PWM(led_pin, 500)
+pwm_motor = GPIO.PWM(motor_pin, 500)
 
-#This means that the led gets started at 100% of the cycle
-pwm_led.start(100)
+#This means that the motor gets started at 100% of the cycle
+pwm_motor.start(100)
 try:
     while (True):
         #change to raw_input if using python 2
@@ -39,7 +39,7 @@ try:
         if not isNumber or duty < 0 or duty > 100:
             print("The input has to be between 0 and 100")
         else:
-            pwm_led.ChangeDutyCycle(duty)
+            pwm_motor.ChangeDutyCycle(duty)
 finally:
     print ("Cleaning Up")
     GPIO.cleanup()
