@@ -13,6 +13,9 @@ p = GPIO.PWM(servoPIN, 50) # GPIO 18 for PWM with 50Hz
 # Angle = 0 for 5%
 # Angle = 90 for 7.5%
 # Angle = 180 for 10%
+# Lead colours Red 5v
+# Brown Ground
+# Yellow 18
 
 p.start(2.5) # Initialization
 try:
