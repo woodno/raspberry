@@ -14,9 +14,8 @@ GPIO.setup(PIN, GPIO.IN)
 
 try:
     while (True):
-        while GPIO.input(PIN) == GPIO.LOW:
+        while (GPIO.input(PIN) == GPIO.LOW):
             time.sleep(0.01)  # wait 10 ms to give CPU chance to do other things
-    print (str(channel))
     i = i + 1
     print ("Button press "+ str(i))
     time.sleep(0.01)
