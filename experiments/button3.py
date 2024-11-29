@@ -18,7 +18,8 @@ try:
             time.sleep(0.01)  # wait 10 ms to give CPU chance to do other things
         i = i + 1
         print ("Button press "+ str(i))
-        time.sleep(0.01)
+        while (GPIO.input(PIN) == GPIO.HIGH):
+            time.sleep(0.01)
 
 # try:
 #     while(True):
