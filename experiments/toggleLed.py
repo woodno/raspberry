@@ -22,7 +22,7 @@ try:
         print ("Button press "+ str(i))
         if not isLedOn:
             GPIO.output(LEDPIN, True)
-            isLedON = True
+            isLedOn = True
         else:
             GPIO.output(LEDPIN, False)
             isLedOn = False
