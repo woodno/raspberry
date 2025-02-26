@@ -1,10 +1,9 @@
 import RPi.GPIO as GPIO
 import time
-
-
+import pickle
 GPIO.setmode(GPIO.BCM)
 PIN = 18
-
+WAITTIME = 0.00000001
 
 
 GPIO.setup(PIN, GPIO.IN)
@@ -15,9 +14,9 @@ GPIO.setup(PIN, GPIO.IN)
 bitList = [(GPIO.input (PIN))]
 try:
     while (True):
+        time.sleep(WAITTIME)  # wait 10 ms to give CPU chance to do other things
         bitList.append(GPIO.input (PIN))
-        time.sleep(0.01)  # wait 10 ms to give CPU chance to do other things
-        
+       
 
 finally:
     print ("Cleaning Up")
