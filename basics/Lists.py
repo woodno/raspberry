@@ -1,11 +1,15 @@
-thislist = ["apple", "banana", "cherry"]
-print(thislist)
-thislist = ["apple", "banana", "cherry", "apple", "cherry"]
-print(thislist)
-thislist = ["apple", "banana", "cherry"]
-print(len(thislist))
+# thislist = ["apple", "banana", "cherry"]
+# print(thislist)
+# thislist = ["apple", "banana", "cherry", "apple", "cherry"]
+# print(thislist)
+# thislist = ["apple", "banana", "cherry"]
+# print(len(thislist))
 mixedList = ["abc", 34, True, 40, "male"]
 print(type(mixedList))
+print (mixedList[2])#List uses 0 based arrays
+print (mixedList[0])
+mixedList.remove(34)
+print(mixedList)
 
 
 
@@ -14,8 +18,9 @@ print(type(mixedList))
 
 
 
-
-
+#cd projects/raspberry
+#ls
+#git pull
 
 
 

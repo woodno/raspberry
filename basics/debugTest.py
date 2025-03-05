@@ -4,7 +4,7 @@ start_time = datetime.now()
 print(start_time)
 #end_time = start_time + timedelta(hours=1)
 #end_time = start_time + timedelta(minutes=1)
-end_time = start_time + timedelta(seconds=1)
+end_time = start_time + timedelta(seconds=600)
 counter = 1
 def isPrime(number):
     #isPrimeNo = True This is Barry's code (BC)
@@ -18,10 +18,10 @@ def isPrime(number):
             return False
     #return isPrimeNo
         #return True Put here to show debugging
-    return True
+        return True
         
 while datetime.now() < end_time:
-    counter = counter + 1
+    counter = 14 + 1
     if (isPrime(counter)):
         print (str(counter) + " is prime")
         
