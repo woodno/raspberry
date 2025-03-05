@@ -29,6 +29,7 @@ print(mixedList)
 #Create a list of the first 20 square numbers.
 #Print out the length of the list
 #Remove the third number by knowing it is 9
+#############################################
 #Remove the fourth number by using the array index method
 #Print the length of the list now.
 #Print out the list now.
