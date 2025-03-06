@@ -29,10 +29,12 @@ print(mixedList)
 #Create a list of the first 20 square numbers.
 #Print out the length of the list
 #Remove the third number by knowing it is 9
-#############################################
 #Remove the fourth number by using the array index method
 #Print the length of the list now.
 #Print out the list now.
+
+################End homework week5
+
 #Iterate through the list and multipy each member by 100
 #Print out the list now.
 #Print out a statement saying whether a list item is smaller than 2500, bigger than 2500 or 2500 using if, elif and else  
