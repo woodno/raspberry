@@ -38,4 +38,4 @@ print(mixedList)
 #Iterate through the list and multipy each member by 100
 #Print out the list now.
 #Print out a statement saying whether a list item is smaller than 2500, bigger than 2500 or 2500 using if, elif and else  
-
+##End Week 6 homework
