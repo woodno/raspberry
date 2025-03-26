@@ -51,17 +51,25 @@ x.welcome()
 
 class BankLoan:
     def __init__(self,principal, rate, time):
-        self.pricipal = principal
-        ##two more
+        self.principal = principal
+        self.rate = rate
+        self.time = time
     def interestPayment(self):
         return self.principal * self.rate / 100 * self.time
         
     def printStatement(self):
-        print ("Your interest is " + str(interestPayment(self)))
-        print ("Your Total Payment is " + str(self.principal + interestPayment(self)))
+        print ("Your interest is " + str(self.interestPayment()))
+        print ("Your Total Payment is " + str(self.principal + self.interestPayment()))
     
 x = BankLoan(1000,10,5)
 x.printStatement()
-               
+y = BankLoan (5000, 2, 7)
+z = BankLoan (2000,6, 25)
+a = BankLoan (600000,5.7, 25)
+bankLoanList = [x,y,z,a]
+for i in range(len(bankLoanList)):
+    bankLoanList[i].printStatement()
+    
+
 
 
