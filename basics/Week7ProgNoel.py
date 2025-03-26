@@ -35,7 +35,12 @@ def getCircumFromRadius(radius):
 inputComplex = input ("Enter a sentance in the format [a,c],[number],[unit]")
 inputList = inputComplex.split(",")
 print (inputList)
+radiusAsNum = float(inputList[1])
 if inputList[0] == 'a':
     print ("you want the area")
+    myArea = getAreaFromRadius(radiusAsNum)
+    print ("The area for your radius is " + str (myArea) + inputList[2] + "squared") 
 else:
     print ("you want the circumfrance")
+    myCircum = getCircumFromRadius(radiusAsNum)
+    print ("The circum for your radius is " + str (myCircum) + inputList[2]) 
