@@ -63,6 +63,7 @@ class BankLoan:
     
 x = BankLoan(1000,10,5)
 x.printStatement()
+print (x.interestPayment())
 y = BankLoan (5000, 2, 7)
 z = BankLoan (2000,6, 25)
 a = BankLoan (600000,5.7, 25)
