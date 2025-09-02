@@ -13,7 +13,8 @@ try:
         i= i + 1
         print ("im here after run " + str(i) )
 
-except KeyboardInterrupt:
+finally:
 	led.value(0)
+	led = Pin(1, Pin.IN) 
 	print ("I've cleaned up after " + str(i) + " runs")
 
