@@ -10,3 +10,8 @@ x = 0
 for i in range (1,101):
     x = x + i
     print (x)
+z = 1
+while z < 20:
+    print ("z= ", z)
+    z = z + 1
+print ("I'm finished and z = ", z)
