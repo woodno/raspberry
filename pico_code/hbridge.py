@@ -22,8 +22,8 @@ pwm_enable_pin.freq(1000)
 #Pin 4,5,12 and 13 are internally connected so can be used for any ground. 
 #Pin 6 = motor lead 2
 #Pin 7 = = GPIO 3
-#Pin 8 (Vs) = 3.3 V on Pico (Supplies logic power)  Can use external power.
-#Pin 16 (Vss) = VBus when conected to microUSB or 5V external power otherwise.
+#Pin 8 (Vs) =  3.3V on Pico (Supplies power to the motor)  Can use external power.
+#Pin 16 (Vss) = 3.3 V Powers the board logic 
 
 #IC pins are numbered 1 and up anticlockwise.
 # pin 16 is top right.
