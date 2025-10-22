@@ -1,14 +1,15 @@
 #Variables, datatypes, comments, operations, casting
 #This is a comment 
 print ("Starting program")
-#variables
-r = "5"
+
 
 #Constants are not special variables in Pi
 #They are named in capitals
 #They go at thye start of a program or block
 MAX_VOLTAGE = 3.3
 
+#variables
+r = "5"
 
 print ("The value of r is " + r)
 print ("The type of r is " , type(r))

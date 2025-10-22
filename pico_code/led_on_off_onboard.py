@@ -8,6 +8,7 @@ try:
         led.value(1)  # Turn the LED ON
         time.sleep(2) # Go to sleep for 2 seconds
             
+            
         led.value(0)  # Turn the LED OFF
         time.sleep(2) # Go to sleep for 2 seconds
         i= i + 1
