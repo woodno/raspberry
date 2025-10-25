@@ -2,6 +2,7 @@ from machine import Pin, PWM # we need to import PWM to use PWM
 import time
 # intialise pin 1 as a PWM output
 pwm_pin = PWM(Pin(1))
+
 # this sets up the frequency that the pin is turned off and on (it is not duty cycle)
 # all constants should be set at the beginning of the program
 # later on we will learn how to do this.
@@ -34,7 +35,10 @@ try:
         print("My LED is 100% bright")
         time.sleep (2)
 finally:
+    
     pwm_pin.deinit()
-    input_pin = (1, Pin.IN)
+    print ("pwm_pin.duty_u16() = ",pwm_pin.duty_u16())
+    input_pin = Pin(1, Pin.IN)
+    print("input_pin.value() = ",input_pin.value())  
     print ("I've cleaned up")
     

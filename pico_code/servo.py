@@ -42,5 +42,5 @@ try:
 
 finally:
     pwm_pin.deinit()
-    inputpwm_pin = (1, Pin.IN)  
+    inputpwm_pin = Pin(1, Pin.IN)  
     print ("I've cleaned up")

@@ -66,8 +66,8 @@ try:
         percentagePWM = percentagePWM - 10
 finally:
     pwm_enable_pin.deinit()
-    inputpwm_pin = (1, Pin.IN)
-    input1_pin = (2, Pin.IN)
-    input2_pin = (3, Pin.IN)
+    inputpwm_pin = Pin(1, Pin.IN)
+    input1_pin = Pin(2, Pin.IN)
+    input2_pin = Pin(3, Pin.IN)
     
     print ("I've cleaned up")

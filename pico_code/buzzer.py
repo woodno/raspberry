@@ -24,6 +24,6 @@ try:
         pwm_pin.freq(freq)
 finally:
     pwm_pin.deinit()
-    input_pin = (1, Pin.IN)
+    input_pin = Pin(1, Pin.IN)
     print ("I've cleaned up")
     

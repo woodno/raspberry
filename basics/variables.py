@@ -16,6 +16,7 @@ print ("The type of r is " , type(r))
 
 x = 7
 print ("the value of x is " + str(x))
+#print ("the value of x is " + x)
 print ("The type of x is " , type(x))
 c  = 7.0
 print ("the value of c is " + str(c))
@@ -25,9 +26,12 @@ print ("The type of c is " , type(c))
 
 #Arithmetic Operators
 #init a var called y make it equal 2
+y = 2
 #init a variable called u make it 16
+u = 16
 # print out y+u, y-u , y*u,  y**u,  and u/y
-
+print ("y+u")
+print (y + u)
 #init a var called t make it equal 25
 #init a variable called n make it 7
 

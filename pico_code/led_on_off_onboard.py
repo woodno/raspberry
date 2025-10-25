@@ -11,7 +11,7 @@ try:
             
         led.value(0)  # Turn the LED OFF
         time.sleep(2) # Go to sleep for 2 seconds
-        i= i + 1
+        i = i + 1
         print ("im here after run " + str(i) )
 
 finally:
