@@ -37,8 +37,6 @@ try:
 finally:
     
     pwm_pin.deinit()
-    print ("pwm_pin.duty_u16() = ",pwm_pin.duty_u16())
     input_pin = Pin(1, Pin.IN)
-    print("input_pin.value() = ",input_pin.value())  
     print ("I've cleaned up")
     
