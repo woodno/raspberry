@@ -2,13 +2,17 @@
 import network
 import socket
 import time
+import json
 
 from machine import Pin
 
 led = Pin(15, Pin.OUT)
+with open("passwordFile.pwd") as f:
+    x = json.loads(f.read())
+print(json.dumps(x))
+ssid = x["ssid"]
+password = x["password"]
 
-ssid = 'YOUR NETWORK NAME'
-password = 'YOUR NETWORK PASSWORD'
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
@@ -22,6 +26,8 @@ html = """<!DOCTYPE html>
     </body>
 </html>
 """
+
+
 
 max_wait = 10
 while max_wait > 0:
@@ -74,6 +80,7 @@ while True:
             stateis = "LED is OFF"
 
         response = html % stateis
+          
 
         cl.send('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
         cl.send(response)
