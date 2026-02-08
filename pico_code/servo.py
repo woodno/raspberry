@@ -43,4 +43,4 @@ try:
 finally:
     pwm_pin.deinit()
     inputpwm_pin = Pin(1, Pin.IN)  
-    print ("I've cleaned up")
+    print ("I've cleaned up")    
