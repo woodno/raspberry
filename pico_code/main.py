@@ -35,29 +35,8 @@ try:
         time.sleep(1) # Go to sleep for 2 seconds
         i = i + 1
         print ("im here after run " + str(i) )
-    #Test2 GPS test
-    #Tries 300 times each 1 second to get a GPS fix
-    #If successful it lights up the onboard led for 10 seconds 
-    uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
-
-    # Create a GPS reader object
-    gps = gps_parser.GPSReader(uart)
-
-    i = 0
-    while i < 300:
-        # Get the GPS data, this will also try and read any new information form the GPS
-        gps_data = gps.get_data()
+    
         
-        # Print the GPS data
-        print(gps_data.has_fix, gps_data.latitude, gps_data.longitude)
-        if (gps_data.has_fix):
-            led.value(1)  # Turn the LED ON
-            time.sleep(10)
-            break
-        # Small delay
-        time.sleep(0.5)
-        
-        i = i + 1
 finally:
 	led.value(0)
 	led = Pin("LED", Pin.IN) 
@@ -106,7 +85,7 @@ hasForwardDirection = True
 
 try:
     #Test2 Servo Motor test.
-    print ("got here")
+    
     pwm_enable_servo.duty_u16(getPWMFromPercentage(100))
     c1.value(1)
     c2.value(0)
@@ -117,6 +96,7 @@ try:
     c1.value(0)
     c2.value(1)
     time.sleep(2)
+    print("End Servo Test")
     #Test3 Drive Motor Test
     i = 0
     while i < 2:
@@ -152,4 +132,25 @@ finally:
     print ("I've cleaned up")
 
 
+#Test4 GPS test
+led = Pin("LED", Pin.OUT) # Set up the onboard LED (can replace "LED" with a pin GPIO number)
+#Tries 300 times each 1 second to get a GPS fix
+#If successful it lights up the onboard led for 10 seconds 
+uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
+
+# Create a GPS reader object
+gps = gps_parser.GPSReader(uart)
+
+
+while True:
+    # Get the GPS data, this will also try and read any new information form the GPS
+    gps_data = gps.get_data()
+    
+    # Print the GPS data
+    print(gps_data.has_fix, gps_data.latitude, gps_data.longitude)
+    if (gps_data.has_fix):
+        led.value(1)  # Turn the LED ON
+        break
+    # Small delay
+    time.sleep(0.5)
 
