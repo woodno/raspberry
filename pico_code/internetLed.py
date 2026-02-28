@@ -10,13 +10,13 @@ led = Pin(15, Pin.OUT)
 with open("passwordFile.pwd") as f:
     x = json.loads(f.read())
 print(json.dumps(x))
-ssid = x["ssid"]
-password = x["password"]
+wifi_ssid = x[wifi_"ssid"]
+wifi_password = x["wifi_password"]
 
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.connect(ssid, password)
+wlan.connect(wifi_ssid, wifi_password)
 
 html = """<!DOCTYPE html>
 <html>
