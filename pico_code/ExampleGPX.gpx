@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.0" creator="Example" xmlns="http://www.topografix.com/GPX/1/0">
+  <trk>
+    <name>Example Track</name>
+    <trkseg>
+      <trkpt lat="46.57608" lon="8.89241">
+        <ele>2376</ele>
+        <time>2007-10-14T10:09:57Z</time>
+      </trkpt>
+      <trkpt lat="46.57619" lon="8.89252">
+        <ele>2375</ele>
+        <time>2007-10-14T10:10:52Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
