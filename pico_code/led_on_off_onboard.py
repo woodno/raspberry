@@ -16,6 +16,6 @@ try:
 
 finally:
 	led.value(0)
-	led = Pin(1, Pin.IN) 
+	led = Pin("LED", Pin.IN) 
 	print ("I've cleaned up after " + str(i) + " runs")
 
