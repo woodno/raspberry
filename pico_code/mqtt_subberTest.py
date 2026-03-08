@@ -55,10 +55,10 @@ def mqtt_subscription_callback(topic, message):
     print(message.decode("utf-8"))
     
     # Debug print out of what was received over MQTT
-    if message == b'on':
+    if message == b'Fwd':
         print("LED ON")
         led.value(1)
-    elif message == b'off':
+    elif message == b'Bkw':
         print("LED OFF")
         led.value(0)
 
