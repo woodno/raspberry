@@ -21,9 +21,11 @@ gps = gps_parser.GPSReader(uart)
 while True:
     # Get the GPS data, this will also try and read any new information form the GPS
     gps_data = gps.get_data()
-    
-    # Print the GPS data
-    print(gps_data.has_fix, gps_data.latitude, gps_data.longitude)
+    if (gps_data.has_fix):
+        # Print the GPS data
+        print("Has fix ", gps_data.has_fix, "lat ", gps_data.latitude, "lon ",
+          gps_data.longitude, "ele ", gps_data.altitude, "time ", gps_data.time,
+          "Date ", gps_data.date, "Speed_Knots ", gps_data.speed_knots  )
     
     # Small delay
     time.sleep(0.5)

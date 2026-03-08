@@ -1,1 +1,0 @@
-#Placeholder to create a GPX file from the GPS data

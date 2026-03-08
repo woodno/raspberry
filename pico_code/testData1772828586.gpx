@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.0" creator="picoExp" xmlns="http://www.topografix.com/GPX/1/0">
+	<trk>
+		<name>Car Track 1772828586</name>
+		<trkseg>
+			<trkpt lat="-26.7578" lon="153.12497">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:08.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757802" lon="153.12497">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:09.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.7578" lon="153.12497">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:10.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.7578" lon="153.12497">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:11.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757794" lon="153.12498">
+				<ele>0.0</ele>
+				<time>2026-03-06T10:23:16.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757792" lon="153.12498">
+				<ele>0.0</ele>
+				<time>2026-03-06T10:23:17.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.75779" lon="153.12498">
+				<ele>0.0</ele>
+				<time>2026-03-06T10:23:18.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.75779" lon="153.12498">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:19.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757794" lon="153.12498">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:20.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757796" lon="153.12498">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:21.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757794" lon="153.12498">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:22.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757794" lon="153.12498">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:23.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757794" lon="153.12498">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:24.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757794" lon="153.12498">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:25.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757794" lon="153.12498">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:26.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.75779" lon="153.12498">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:27.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.75779" lon="153.12497">
+				<ele>6.3</ele>
+				<time>2026-03-06T10:23:28.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.75779" lon="153.12497">
+				<ele>0.0</ele>
+				<time>2026-03-06T10:23:30.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.75779" lon="153.12497">
+				<ele>0.0</ele>
+				<time>2026-03-06T10:23:31.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757788" lon="153.12497">
+				<ele>0.0</ele>
+				<time>2026-03-06T10:23:32.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757788" lon="153.12497">
+				<ele>6.4</ele>
+				<time>2026-03-06T10:23:33.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757786" lon="153.12497">
+				<ele>6.5</ele>
+				<time>2026-03-06T10:23:34.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.75778" lon="153.12497">
+				<ele>6.5</ele>
+				<time>2026-03-06T10:23:35.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757778" lon="153.12497">
+				<ele>6.6</ele>
+				<time>2026-03-06T10:23:36.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757776" lon="153.12497">
+				<ele>6.6</ele>
+				<time>2026-03-06T10:23:37.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757772" lon="153.12497">
+				<ele>6.5</ele>
+				<time>2026-03-06T10:23:38.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757768" lon="153.12497">
+				<ele>6.4</ele>
+				<time>2026-03-06T10:23:39.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757766" lon="153.12497">
+				<ele>6.4</ele>
+				<time>2026-03-06T10:23:40.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757768" lon="153.12497">
+				<ele>6.4</ele>
+				<time>2026-03-06T10:23:41.00Z</time>
+			</trkpt>
+			<trkpt lat="-26.757772" lon="153.12497">
+				<ele>0.0</ele>
+				<time>2026-03-06T10:23:45.00Z</time>
+			</trkpt>
+		</trkseg>
+	</trk>
+</gpx>

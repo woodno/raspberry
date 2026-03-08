@@ -32,10 +32,11 @@ pwm_enable_servo.freq(1150)
 #The following pin out is in relation
 #to the L293D motor driver
 #this setup facilitates one motor running in forward or reverse mode
-# Using more pins the driver can run another motor forward or reverse.
+#we call this the driver motor
+#it also pins out the servo motor
 #This is the pin out starting from the top left (Notch is the top)
 #Pin 1 enable = GPIO pin 3 (PWM pin)
-#Pin 2 = GPIO pin 4
+#Pin 2 = GPIO pin 4 (Input1)
 #Pin 3 OUT 1 =  Control1 lead of a normal motor
 #Pin 4 GND = GND Pi
 #Pin 5 If using an external power source connect to the ground of that.
