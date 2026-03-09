@@ -1,13 +1,9 @@
 """
 Lego Car code
 Written by Noel Wood
-Taken from cade written @ Core Electronics
+Taken from code written @ Core Electronics
 Adapted from examples in: https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
     - Version 1.0 Mar 2026
-
-Controls 1) a lego car using mqtt Two motors a servo and a normal drive motor
-2) Gets GPS data from a GPS module on the car and logs it using mqtt and an SD card module
-
 
 """
 
@@ -23,8 +19,13 @@ import sdcard, uos
 import gps_parser
 
 
-#constant list
+#global variable list
 check_interval_sec = 0.25
+#todo set these mqtt varaibles by publishing them
+isCarDirectionForward = False
+carLeftRight = 50
+carSpeed = 0
+isGPSRecordingOn = False
 
 
 #HardwareDefn
@@ -35,6 +36,14 @@ spi = SPI(1,sck=Pin(14), mosi=Pin(15), miso=Pin(12))
 cs = Pin(13)
 sd = sdcard.SDCard(spi, cs)
 uos.mount(sd, '/sd')
+pwm_enable_drive_motor = PWM(Pin(3))
+pwm_enable_drive_motor.freq(1000)
+pwm_enable_servo = PWM(Pin(10))
+pwm_enable_servo.freq(1150)
+input1_pin = Pin(4, Pin.OUT)
+input2_pin = Pin(5, Pin.OUT)
+c1 = Pin(6, Pin.OUT)
+c2 = Pin(7, Pin.OUT)
 
 #function blink_led to communicate status with user
 def blink_led(frequency = 0.5, num_blinks = 3):
@@ -45,6 +54,10 @@ def blink_led(frequency = 0.5, num_blinks = 3):
         time.sleep(frequency)
 
 #bring in connection file
+#todo connect the following mqtt topics 
+#"mqtt_gpsrecording_topic"
+#"mqtt_gpsdataout_topic"
+#"mqtt_speed_topic"
 def read_connection_file():
     with open("passwordFile.pwd") as f:
         x = json.loads(f.read())
@@ -64,8 +77,8 @@ def read_connection_file():
     mqtt_password = x["mqtt_password"]  # Adafruit IO Key
     mqtt_direction_topic = x["mqtt_direction_topic"]  # The MQTT topic for your Adafruit IO Feed
     mqtt_leftright_topic = x["mqtt_leftright_topic"]
-#async Function to connect to wifi
 
+#async Function to connect to wifi
 def connect_to_wifi():
     wlan.active(True)
     wlan.config(pm = 0xa11140)  # Diable powersave mode
@@ -80,7 +93,7 @@ def connect_to_wifi():
         print('waiting for connection...')
         time.sleep(1)
 
-    # Handle connection error
+    #Reports connection error trough blinking light
     if wlan.status() != 3:
         blink_led(0.1, 10)
         raise RuntimeError('WiFi connection failed')
@@ -90,11 +103,25 @@ def connect_to_wifi():
         status = wlan.ifconfig()
         print('ip = ' + status[0])
 
-#async function to set up clients
 
-#async function to publish initial state conditions
-        
-async def save_to_sd(latitude, longitude):
+
+#todo finish function to publish initial state conditions
+#I do not want this to be async as I want
+#this in place before the car starts working
+def publishInitialStates():
+    global isCarDirectionForward
+    global carLeftRight
+    global carSpeed
+    global isGPSRecordingOn
+#todo Below are the initial states I want to publish
+# isCarDirectionForward = False
+# carLeftRight = 50
+# carSpeed = 0
+# isGPSRecordingOn = False
+#todo test that an integer can be set as an mqtt message   
+
+#todo turn into a gpx element output        
+async def save_to_sd(latitude, longitude, time, date, altitude):
     with open('/sd/testData.txt', "w") as f:
         t = time.ticks_ms()/1000
         f.write(str(t)) # Write time sample was taken in seconds
@@ -104,17 +131,40 @@ async def save_to_sd(latitude, longitude):
         f.write('\n') # A new line
         f.flush() # Force writing of buffered data to the SD card
         print ("Wrote " + str(latitude) + "," + str(longitude) + " to sd card")
+#todo implement publishGpsData
+async def publishGpsData( gps_data.latitude, gps_data.longitude,
+                                                gps_data.time, gps_data.date, gps_data.altitude)
 
 #callback function to wait for subscribed messages
 def mqtt_callback(topic, msg):
     print(f"Received: {msg} on {topic}")
-        
-#async function to publish gps data
-#async def write_gps_data():
-    
-#async function to store data on sdcard
+    #todo test how to handle callbacks on differnt topics
+    #todo hanlde different calls on different topics
+    #todo work out how to turn byte arrays into ints and strings
 
-#async main function
+#todo implement handleChangeOfSpeed
+async def handleChangeOfSpeed(newSpeed):
+    print(f"At handleChangeOfSpeed with new speed ",newSpeed)
+
+#todo implement handleChangeOfLeftRight
+#todo make sure to put the car back to middle direction after async wait 0.5 seconds
+#todo make sure to publish the mqtt setting back to the middle after async wait 0.5 seconds  
+async def handleChangeOfLeftRight(newLeftRight):
+    print(f"At handleChangeOfSpeed with new LeftRight ",newLeftRight)
+
+#todo implement handleChangeOfDirection
+async def handleChangeOfDirection(newDirection):
+    print(f"At handleChangeOfSpeed with new Direction ",newDirection)
+
+#todo implement handleStartGpsFile()
+async def handleStartGpsFile():
+    print("At handleStartGpsFile")
+    
+#todo implement handleStopGpsFile()
+async def handleStopGpsFile():
+    print("At handleStopGpsFile")   
+
+
         
 async def main():
     print("Reading connection settings")
@@ -122,6 +172,7 @@ async def main():
     print('Connecting to WiFi...')
     
     connect_to_wifi()
+    #todo investigate generating a unique client id call below did not work
     #mqtt_client_id = machine.unique_id().hex()
     mqtt_client_id = "qwerafshdndhsnbhdebf"
     mqtt_client1 = MQTTClient(
@@ -130,6 +181,7 @@ async def main():
         user=mqtt_username,
         password=mqtt_password)
     
+    #todo investigate generating a unique client id call below did not work
     #mqtt_client_id = machine.unique_id().hex()
     mqtt_client_id = "dhcjhbwfbwifnjkwfnh"
     mqtt_client2 = MQTTClient(
@@ -150,12 +202,18 @@ async def main():
         mqtt_client2.check_msg()
         
         gps_data = gps.get_data()
+         
         if gps_data.has_fix:
             print ("latlog:",str(gps_data.latitude), gps_data.longitude)
-            asyncio.create_task(save_to_sd( gps_data.latitude, gps_data.longitude))
+            asyncio.create_task(publishGpsData( gps_data.latitude, gps_data.longitude,
+                                                gps_data.time, gps_data.date, gps_data.altitude))
+            #todo only go here if the mqtt indicates to start gps recording
+            asyncio.create_task(save_to_sd( gps_data.latitude, gps_data.longitude,
+                                                gps_data.time, gps_data.date, gps_data.altitude))
+            
         else:
             print ("No GPS fix available")
-        # Perform other tasks
+    
         
         await asyncio.sleep(check_interval_sec)
 
@@ -168,4 +226,7 @@ async def main():
 try:
     asyncio.run(main())
 finally:
-    asyncio.new_event_loop()        
+    asyncio.new_event_loop()
+    #todo reset all the pwm and out pins to in pins
+    #Im not sure this actually will do anything with a battery paower
+    #pack because it will just turn off without going here.
