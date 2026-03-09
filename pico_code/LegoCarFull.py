@@ -1,8 +1,8 @@
 """
 Lego Car code
-Written by Noel Wood
-Taken from code written @ Core Electronics
-Adapted from examples in: https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
+Written by Noel Wood and U3A students
+Some code taken from code written @ Core Electronics
+Some code adapted from examples in: https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
     - Version 1.0 Mar 2026
 
 """
@@ -18,14 +18,15 @@ import json
 import sdcard, uos
 import gps_parser
 
+#Constant List
+#Do not adjust this to a faster wait time without checking ToS
+#The terms of service as of Mar 2026 state you are allowed
+#To publish once every 2 seconds
+MIN_ADAFRUIT_PUBLISH_WAIT = 2
 
 #global variable list
 check_interval_sec = 0.25
-#todo set these mqtt varaibles by publishing them
-isCarDirectionForward = False
-carLeftRight = 50
-carSpeed = 0
-isGPSRecordingOn = False
+
 
 
 #HardwareDefn
@@ -56,7 +57,6 @@ def blink_led(frequency = 0.5, num_blinks = 3):
 #bring in connection file
 #todo connect the following mqtt topics 
 #"mqtt_gpsrecording_topic"
-#"mqtt_gpsdataout_topic"
 #"mqtt_speed_topic"
 def read_connection_file():
     with open("passwordFile.pwd") as f:
@@ -106,14 +106,9 @@ def connect_to_wifi():
 
 
 #todo finish function to publish initial state conditions
-#I do not want this to be async as I want
 #this in place before the car starts working
 async def publishInitialStates(mqtt_client):
     print("At Publish Initial State")
-    global isCarDirectionForward
-    global carLeftRight
-    global carSpeed
-    global isGPSRecordingOn
     #todo Below are the initial states I want to publish
     # isCarDirectionForward = False
     # carLeftRight = 50
@@ -121,11 +116,45 @@ async def publishInitialStates(mqtt_client):
     # isGPSRecordingOn = False
     #todo test that an integer can be set as an mqtt message
     await publishTopic (mqtt_client, mqtt_direction_topic, "Fwd")
+    isCarDirectionForward = True
     await publishTopic (mqtt_client, mqtt_leftright_topic, b'50')
+    carLeftRight = 50
+#todo implement setCarInitialStates
+async def setCarInitialStates():
+    print("todo")
+#todo implement setCarSpeed    
+async def setCarSpeed(speed):
+    print("todo")
+#todo setCarDirection
+async def setCarDirection(isCarForward):
+    print("todo")
+#todo implement setCarLeftRight
+async def setCarLeftRight(carLeftRight):
+    print("todo")
+#todo implement setIsGPSRecordingOn
+async def setIsGPSRecordingOn (isOn):
+    print("todo")
+    #todo return IsGPSRecordingOn value
+#todo implement initializeGPXFile
+#put in all of the data up to the trackpoint element 
+async def initializeGPXFile ():
+    print("todo")
+    #todo return filename object
+#todo implement saveTrackPointElement
+async def saveTrackPointElement(filename, lat, lon, ele, time, date):
+    print("todo")
+#todo implement saveClosingPartOfGPX
+async def saveClosingPartOfGPX(filename):
+    print("todo")
+
+
 
 async def publishTopic (mqtt_client, topic, msg):
     mqtt_client.publish(topic, msg)
-    await asyncio.sleep(2)
+    #Do not adjust this to a faster wait time
+    #The terms of service as of Mar 2026 state you are allowed
+    #To publish once every 2 seconds
+    await asyncio.sleep(MIN_ADAFRUIT_PUBLISH_WAIT)
 
 #todo turn into a gpx element output        
 async def save_to_sd(latitude, longitude, time, date, altitude):
@@ -144,7 +173,7 @@ async def save_to_sd(latitude, longitude, time, date, altitude):
 def mqtt_callback(topic, msg):
     print(f"Received: {msg} on {topic}")
     #todo test how to handle callbacks on differnt topics
-    #todo hanlde different calls on different topics
+    #todo handle different calls on different topics
     #todo work out how to turn byte arrays into ints and strings
 
 #todo implement handleChangeOfSpeed
@@ -193,26 +222,29 @@ async def main():
     mqtt_client.subscribe(mqtt_leftright_topic)
     print("after mqtt connect")
     await publishInitialStates(mqtt_client)
-    
+    await setLegoCarInitialStates()
     
     #Check for gps data
-    #gps = gps_parser.GPSReader(uart)
+    gps = gps_parser.GPSReader(uart)
     while True:
+        
         mqtt_client.wait_msg()
         
         
-#         gps_data = gps.get_data()
-#          
+        gps_data = gps.get_data()
+         
+        #todo if we are told via a mqtt message to generate a gps file
+        #todo Initialize the gpx file and never call it again till a second file is required
+        #todo check if we have a fix and record a trackpoint if we do
+        #todo close off the file if the mqtt topic is toggled
+        #todo repopen a new file it it is toggled again
 #         if gps_data.has_fix:
-#             print ("latlog:",str(gps_data.latitude), gps_data.longitude)
-#             #todo set up a condition to only run if mqtt_gpsrecording_topic marker is on
-#             asyncio.create_task(publishGpsData( gps_data.latitude, gps_data.longitude,
-#                                                 gps_data.time, gps_data.date, gps_data.altitude))
-#                         
-#         else:
-#             print ("No GPS fix available")
-#     
-#         
+#             asyncio.create_task(todo put in the create trackpoint task here)
+# 
+#                          
+#          else:
+#              print ("No GPS fix available")
+         
         await asyncio.sleep(check_interval_sec)
 
         #time.sleep(0.1)
