@@ -108,17 +108,24 @@ def connect_to_wifi():
 #todo finish function to publish initial state conditions
 #I do not want this to be async as I want
 #this in place before the car starts working
-def publishInitialStates():
+async def publishInitialStates(mqtt_client):
+    print("At Publish Initial State")
     global isCarDirectionForward
     global carLeftRight
     global carSpeed
     global isGPSRecordingOn
-#todo Below are the initial states I want to publish
-# isCarDirectionForward = False
-# carLeftRight = 50
-# carSpeed = 0
-# isGPSRecordingOn = False
-#todo test that an integer can be set as an mqtt message   
+    #todo Below are the initial states I want to publish
+    # isCarDirectionForward = False
+    # carLeftRight = 50
+    # carSpeed = 0
+    # isGPSRecordingOn = False
+    #todo test that an integer can be set as an mqtt message
+    await publishTopic (mqtt_client, mqtt_direction_topic, "Fwd")
+    await publishTopic (mqtt_client, mqtt_leftright_topic, b'50')
+
+async def publishTopic (mqtt_client, topic, msg):
+    mqtt_client.publish(topic, msg)
+    await asyncio.sleep(2)
 
 #todo turn into a gpx element output        
 async def save_to_sd(latitude, longitude, time, date, altitude):
@@ -131,9 +138,7 @@ async def save_to_sd(latitude, longitude, time, date, altitude):
         f.write('\n') # A new line
         f.flush() # Force writing of buffered data to the SD card
         print ("Wrote " + str(latitude) + "," + str(longitude) + " to sd card")
-#todo implement publishGpsData
-async def publishGpsData( gps_data.latitude, gps_data.longitude,
-                                                gps_data.time, gps_data.date, gps_data.altitude)
+
 
 #callback function to wait for subscribed messages
 def mqtt_callback(topic, msg):
@@ -174,47 +179,40 @@ async def main():
     connect_to_wifi()
     #todo investigate generating a unique client id call below did not work
     #mqtt_client_id = machine.unique_id().hex()
+    #todo add two more clients for all the control dashboard
     mqtt_client_id = "qwerafshdndhsnbhdebf"
-    mqtt_client1 = MQTTClient(
+    mqtt_client = MQTTClient(
         client_id=mqtt_client_id,
         server=mqtt_host,
         user=mqtt_username,
         password=mqtt_password)
+    print("before mqtt connect")
+    mqtt_client.connect()
+    mqtt_client.set_callback(mqtt_callback)
+    mqtt_client.subscribe(mqtt_direction_topic)
+    mqtt_client.subscribe(mqtt_leftright_topic)
+    print("after mqtt connect")
+    await publishInitialStates(mqtt_client)
     
-    #todo investigate generating a unique client id call below did not work
-    #mqtt_client_id = machine.unique_id().hex()
-    mqtt_client_id = "dhcjhbwfbwifnjkwfnh"
-    mqtt_client2 = MQTTClient(
-        client_id=mqtt_client_id,
-        server=mqtt_host,
-        user=mqtt_username,
-        password=mqtt_password)
-    mqtt_client1.set_callback(mqtt_callback)
-    mqtt_client2.set_callback(mqtt_callback)
-    mqtt_client1.connect()
-    mqtt_client2.connect()
-    mqtt_client1.subscribe(mqtt_direction_topic)
-    mqtt_client2.subscribe(mqtt_leftright_topic)
+    
     #Check for gps data
-    gps = gps_parser.GPSReader(uart)
+    #gps = gps_parser.GPSReader(uart)
     while True:
-        mqtt_client1.check_msg()
-        mqtt_client2.check_msg()
+        mqtt_client.wait_msg()
         
-        gps_data = gps.get_data()
-         
-        if gps_data.has_fix:
-            print ("latlog:",str(gps_data.latitude), gps_data.longitude)
-            asyncio.create_task(publishGpsData( gps_data.latitude, gps_data.longitude,
-                                                gps_data.time, gps_data.date, gps_data.altitude))
-            #todo only go here if the mqtt indicates to start gps recording
-            asyncio.create_task(save_to_sd( gps_data.latitude, gps_data.longitude,
-                                                gps_data.time, gps_data.date, gps_data.altitude))
-            
-        else:
-            print ("No GPS fix available")
-    
         
+#         gps_data = gps.get_data()
+#          
+#         if gps_data.has_fix:
+#             print ("latlog:",str(gps_data.latitude), gps_data.longitude)
+#             #todo set up a condition to only run if mqtt_gpsrecording_topic marker is on
+#             asyncio.create_task(publishGpsData( gps_data.latitude, gps_data.longitude,
+#                                                 gps_data.time, gps_data.date, gps_data.altitude))
+#                         
+#         else:
+#             print ("No GPS fix available")
+#     
+#         
         await asyncio.sleep(check_interval_sec)
 
         #time.sleep(0.1)
@@ -226,7 +224,7 @@ async def main():
 try:
     asyncio.run(main())
 finally:
-    asyncio.new_event_loop()
+    print("Finished")
     #todo reset all the pwm and out pins to in pins
     #Im not sure this actually will do anything with a battery paower
     #pack because it will just turn off without going here.

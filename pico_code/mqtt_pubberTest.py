@@ -1,6 +1,6 @@
 """
 A simple example that connects to the Adafruit IO MQTT server
-and publishes values that represent a sine wave
+and publishes a text and a number to two different feeds 
 """
 
 import network
@@ -18,7 +18,7 @@ wifi_password = x["wifi_password"]
 mqtt_host = x["mqtt_host"]
 mqtt_username = x["mqtt_username"]  # Your Adafruit IO username
 mqtt_password = x["mqtt_password"]  # Adafruit IO Key
-mqtt_publish_topic = x["mqtt_publish_topic"]  # The MQTT topic for your Adafruit IO Feed
+mqtt_direction_topic = x["mqtt_direction_topic"]  # The MQTT topic for your Adafruit IO Feed
 
 # Connect to WiFi
 wlan = network.WLAN(network.STA_IF)
@@ -51,23 +51,18 @@ mqtt_client.connect()
 #  enough to see data in realtime without exceeding the rate limit.
 counter = 0
 try:
-    while True:
-        # Generate some dummy data that changes every loop
-        #sine = sin(counter)
-        #counter += .8
-        
-        # Publish the data to the topic!
-        #print(f'Publish {sine:.2f}')
+    while counter < 20:
         print ("Publish Fwd")
-        mqtt_client.publish(mqtt_publish_topic, "Fwd")
+        mqtt_client.publish(mqtt_direction_topic, "Fwd")
         
         # Delay a bit to avoid hitting the rate limit
         time.sleep(3)
         print ("Publish Bkw")
-        mqtt_client.publish(mqtt_publish_topic, "Bkw")
+        mqtt_client.publish(mqtt_direction_topic, "Bkw")
         
         # Delay a bit to avoid hitting the rate limit
         time.sleep(3)
+        counter+=1
 except Exception as e:
     print(f'Failed to publish message: {e}')
 finally:
