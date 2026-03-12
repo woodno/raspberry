@@ -26,6 +26,7 @@ MIN_ADAFRUIT_PUBLISH_WAIT = 2
 
 #global variable list
 check_interval_sec = 0.25
+isGpsRecordingOn = False
 
 
 
@@ -131,8 +132,16 @@ async def setCarDirection(isCarForward):
 #todo implement setCarLeftRight
 async def setCarLeftRight(carLeftRight):
     print("todo")
-#todo implement setIsGPSRecordingOn
+
 async def setIsGPSRecordingOn (isOn):
+    global isGpsRecordingOn
+    if not isGpsRecordingOn and isOn :
+        initializeGPXFile()
+        isGpsRecordingOn = True
+    if isGpsRecordingOn and not isOn :
+        saveClosingPartOfGPX()
+        isGpsRecordingOn = False
+        
     print("todo")
     #todo return IsGPSRecordingOn value
 #todo implement initializeGPXFile
@@ -141,10 +150,10 @@ async def initializeGPXFile ():
     print("todo")
     #todo return filename object
 #todo implement saveTrackPointElement
-async def saveTrackPointElement(filename, lat, lon, ele, time, date):
+async def saveTrackPointElement(lat, lon, ele, time, date):
     print("todo")
 #todo implement saveClosingPartOfGPX
-async def saveClosingPartOfGPX(filename):
+async def saveClosingPartOfGPX():
     print("todo")
 
 
@@ -156,17 +165,6 @@ async def publishTopic (mqtt_client, topic, msg):
     #To publish once every 2 seconds
     await asyncio.sleep(MIN_ADAFRUIT_PUBLISH_WAIT)
 
-#todo turn into a gpx element output        
-async def save_to_sd(latitude, longitude, time, date, altitude):
-    with open('/sd/testData.txt', "w") as f:
-        t = time.ticks_ms()/1000
-        f.write(str(t)) # Write time sample was taken in seconds
-        f.write(' ') # A space
-        #f.write(str(x)) # Write sample data
-        f.write(str(latitude) + "," + str(longitude) )
-        f.write('\n') # A new line
-        f.flush() # Force writing of buffered data to the SD card
-        print ("Wrote " + str(latitude) + "," + str(longitude) + " to sd card")
 
 
 #callback function to wait for subscribed messages
@@ -206,10 +204,7 @@ async def main():
     print('Connecting to WiFi...')
     
     connect_to_wifi()
-    #todo investigate generating a unique client id call below did not work
-    #mqtt_client_id = machine.unique_id().hex()
-    #todo add two more clients for all the control dashboard
-    mqtt_client_id = "qwerafshdndhsnbhdebf"
+    mqtt_client_id = machine.unique_id().hex()
     mqtt_client = MQTTClient(
         client_id=mqtt_client_id,
         server=mqtt_host,

@@ -60,12 +60,20 @@
             cursor: pointer;
         }
     </style>
+    <script>
+    function validateAndSubmit() {
+        // Perform validation or other actions.
+        alert("Validation complete, submitting manually.");
+        // Manually submit the form after your actions are done
+        document.getElementById("myForm").submit();
+    }
+    </script>
 </head>
 <body>
-
+<form id="myForm"  method="POST">
     <div class="button-container">
         <div class="button-row">
-            <button id="btn1">Button 1</button>
+            <button id="btn1" onclick="validateAndSubmit()">Button 1</button>
             <button id="btn2">Button 2</button>
         </div>
         <div class="button-row">
@@ -79,6 +87,6 @@
         <label for="volumeSlider"><strong>Value Slider:</strong></label>
         <input type="range" id="volumeSlider" min="0" max="100" value="50">
     </div>
-
+</form>
 </body>
 </html>
