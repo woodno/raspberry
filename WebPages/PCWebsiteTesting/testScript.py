@@ -11,6 +11,12 @@
 #python3 -m http.server --cgi
 #This tells the server to serve up .py pages using scripting instead of literals
 #from a web browser call http://localhost:8000/cgi-bin/testScript2.py
+#To find how to access this from any browser on the local network
+#in the terminal type ipconfig /all
+#Look for the lease obtaied field which should match
+#when you started the server.
+#So now the call could be for example
+#http://192.168.0.209:8000/testScript.py
 print(
     """\
 Content-Type: text/html

@@ -1,4 +1,5 @@
 # Taken with thanks from https://www.raspberrypi.com/news/how-to-run-a-webserver-on-raspberry-pi-pico-w/
+#Both browser and pico must be using the same wi-fi connection
 import network
 import socket
 import time
@@ -10,7 +11,7 @@ led = Pin(15, Pin.OUT)
 with open("passwordFile.pwd") as f:
     x = json.loads(f.read())
 print(json.dumps(x))
-wifi_ssid = x[wifi_"ssid"]
+wifi_ssid = x["wifi_ssid"]
 wifi_password = x["wifi_password"]
 
 
@@ -62,13 +63,25 @@ while True:
         print('client connected from', addr)
         request = cl.recv(1024)
         print(request)
+        print(request[0:6])
 
         request = str(request)
         led_on = request.find('/light/on')
         led_off = request.find('/light/off')
         print( 'led on = ' + str(led_on))
         print( 'led off = ' + str(led_off))
-
+        #The request is GET /light/on
+        #or GET /light/off
+        #if the string exists then it is first found
+        #at point 6
+        #This is because the request is
+        #shown as a byte literal as
+        #b'GET /light/on etc'
+        #but it reads it as a straight string
+        #probably should have done a better conversion
+        #like s = bl.decode("utf-8")
+        #to convert the byte literal to a string 
+        
         if led_on == 6:
             print("led on")
             led.value(1)
