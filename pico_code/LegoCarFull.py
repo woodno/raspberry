@@ -172,7 +172,7 @@ def mqtt_callback(topic, msg):
     print(f"Received: {msg} on {topic}")
     #todo test how to handle callbacks on differnt topics
     #todo handle different calls on different topics
-    #todo work out how to turn byte arrays into ints and strings
+    #todo work out how to turn byte literals into ints and strings
 
 #todo implement handleChangeOfSpeed
 async def handleChangeOfSpeed(newSpeed):
