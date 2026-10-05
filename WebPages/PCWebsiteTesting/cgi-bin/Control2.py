@@ -81,21 +81,29 @@ f"""
 </style>
 </head>
 <body>
+<h1>Lego Car Controls</h1>
 <form id="myForm"  method="GET">
     <div class="button-container">
         <div class="button-row">
-            <button id="btn1">Button 1</button>
-            <button id="btn2">Button 2</button>
+            <button id="btn1">Left</button>
+            <button id="btn2">Right</button>
         </div>
         <div class="button-row">
-            <button id="btn3">Button 3</button>
-            <button id="btn4">Button 4</button>
+            <button id="btn3">Fwd</button>
+            <button id="btn4">Bkw</button>
+        </div>
+        <div class="button-row">
+            <button id="btn5">GPS Rec on</button>
+            <button id="btn6">GPS Rec off</button>
+        </div>
+        <div class="button-row">
+            <button id="btn7">Button 7</button>
             <button type="submit" name="Right" value="R" id="btn5">Right</button>
         </div>
     </div>
 
     <div class="slider-group">
-        <label for="volumeSlider"><strong>Value Slider:</strong></label>
+        <label for="volumeSlider"><strong>Car Speed:</strong></label>
         <input type="range" id="volumeSlider" name="volumeSlider" onChange=submit() min="0" max="100" value="50">
     </div>
 </form>
