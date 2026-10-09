@@ -1,3 +1,4 @@
+#This just mounts the sd card and lists what is on it
 from machine import SPI, Pin
 import sdcard, uos
 

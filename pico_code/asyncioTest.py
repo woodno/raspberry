@@ -1,3 +1,6 @@
+#This is a demo of how asyncio works 
+#Uncomment the examples one at a time to 
+#see the various aspects of the asyncio class
 import asyncio
 import time
 

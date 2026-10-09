@@ -1,3 +1,4 @@
+#Calls a buzzer with pwm
 from machine import Pin, PWM # we need to import PWM to use PWM
 import time
 # intialise pin 1 as a PWM output
