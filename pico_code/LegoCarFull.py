@@ -6,7 +6,8 @@ Some code adapted from examples in: https://datasheets.raspberrypi.com/picow/con
     - Version 1.0 Mar 2026
 
 """
-
+#todo only use the mqtt protocol to turn on and off GPS recording
+#todo modify motor control mqtt calls to internet calls
 #import list
 import time
 import network

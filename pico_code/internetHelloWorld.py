@@ -1,3 +1,4 @@
+#TODO Get working currently not working
 # Taken with thanks from
 # https://core-electronics.com.au/guides/raspberry-pi-pico-w-connect-to-the-internet/
 import urequests # handles making and servicing network requests

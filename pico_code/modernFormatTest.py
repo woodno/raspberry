@@ -1,3 +1,6 @@
+#TODO This is the method of writing the html to control the
+#LEGO Car expand to get it to function better
+
 from HtmlControlPage import HtmlControlPage
 html = """<!DOCTYPE html>
 <html>

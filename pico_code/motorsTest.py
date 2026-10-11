@@ -60,10 +60,12 @@ pwm_enable_servo.freq(1150)
 #you also need the 9V and GND leads hooked up
 #9V can come from any 9V source and GND can connect to any GND
 
-#Test2 Servo Motor test.
 
+#Drive Motor Inputs
 input1_pin = Pin(4, Pin.OUT)
 input2_pin = Pin(5, Pin.OUT)
+
+#Servo Motor Inputs
 c1 = Pin(6, Pin.OUT)
 c2 = Pin(7, Pin.OUT)
 

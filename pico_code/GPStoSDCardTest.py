@@ -1,4 +1,5 @@
 #GPStoSDCardTest
+#This test takes information from the GPS unit and sends it to the SDCard
 from machine import Pin, UART, SPI
 import time
 import gps_parser
@@ -33,6 +34,9 @@ with open('/sd/testData'+timestr+'.txt', "w") as f:
 
 i = 0
 # Main loop
+#TODO Currently this test only works for 15 seconds.
+#Modify to turn on or off using an IO pins state. Use code in SwitchForMainTest
+#TODO Add a blink feature to the onboard LED to let you know when the GPS is recording 
 while i < 30:
     # Get the GPS data, this will also try and read any new information form the GPS
     gps_data = gps.get_data()

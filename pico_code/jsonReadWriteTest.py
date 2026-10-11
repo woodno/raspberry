@@ -23,5 +23,8 @@ with open('data.json', 'r') as f:
     data = json.load(f)
         
 print (data["name"])
+print (data["address"])
+print (data["address"]["home"])
+print (data["address"]["home"][0])
 
 print(data)
