@@ -35,8 +35,11 @@ with open('/sd/testData'+timestr+'.txt', "w") as f:
 i = 0
 # Main loop
 #TODO Currently this test only works for 15 seconds.
-#Modify to turn on or off using an IO pins state. Use code in SwitchForMainTest
-#TODO Add a blink feature to the onboard LED to let you know when the GPS is recording 
+#TODO Modify to turn on or off using an IO pins state. Use code in SwitchForMainTest
+#TODO Add a blink feature to the onboard LED to let you know when the GPS is recording
+#TODO In the next few lessons we are looking at MQTT
+#TODO Write and test code that subscribes to the GPS queue and turns on and off 
+#TODO The recording 
 while i < 30:
     # Get the GPS data, this will also try and read any new information form the GPS
     gps_data = gps.get_data()

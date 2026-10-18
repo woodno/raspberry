@@ -158,7 +158,7 @@ async def saveClosingPartOfGPX():
     print("todo")
 
 
-
+#todo you might like to publish the gps location of the car every 2 sec
 async def publishTopic (mqtt_client, topic, msg):
     mqtt_client.publish(topic, msg)
     #Do not adjust this to a faster wait time
@@ -198,7 +198,13 @@ async def handleStopGpsFile():
     print("At handleStopGpsFile")   
 
 
-        
+#todo the only mqtt queues we are going to use on the car
+#todo do not involve steering or speed
+#todo the restriction to only send a control
+#todo every 2 seconds will not allow
+#todo the car to be adequately controlled
+#todo replace any steering or speed calls with direct internet calls 
+    
 async def main():
     print("Reading connection settings")
     read_connection_file()
