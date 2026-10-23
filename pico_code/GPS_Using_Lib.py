@@ -12,6 +12,8 @@ import gps_parser
 #So it goes to the 0 pin
 #There are two UARTs, UART0 and UART1. UART0 can be mapped
 #to GPIO 0/1, 12/13 and 16/17, and UART1 to GPIO 4/5 and 8/9
+#I have not tried alternative uarts and dont know where
+#I got that info so use with caution
 uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
 
 # Create a GPS reader object

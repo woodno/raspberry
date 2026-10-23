@@ -10,31 +10,33 @@ MAX_VOLTAGE = 3.3
 
 #variables
 r = "5"
+# 
+# print ("The value of r is " + r)
+# print ("The type of r is " , type(r))
 
-print ("The value of r is " + r)
-print ("The type of r is " , type(r))
-
-x = 7
-print ("the value of x is " + str(x))
-#print ("the value of x is " + x)
-print ("The type of x is " , type(x))
-c  = 7.0
-print ("the value of c is " + str(c))
-print ("The type of c is " , type(c))
-#Make a new variable z from casting r to a float.
-#Print it out and check its type
-
-#Arithmetic Operators
-#init a var called y make it equal 2
-y = 2
+# x = 7
+# print ("the value of x is " + str(x))
+# #print ("the value of x is " + x)
+# print ("The type of x is " , type(x))
+# c  = 7.0
+# print ("the value of c is " + str(c))
+# print ("The type of c is " , type(c))
+# #Make a new variable z from casting r to a float.
+# z = float(r)
+# # #Print it out and check its type
+# print ("The value of z = " , z)
+# print ("The type of z = ", type (z))
+# #Arithmetic Operators
+# #init a var called y make it equal 3
+y = 3
 #init a variable called u make it 16
 u = 16
-# print out y+u, y-u , y*u,  y**u,  and u/y
+# print out y+u, y-u , y*u,  y**u,  u/y, u//y, u%y
 print ("y+u")
 print (y + u)
-#init a var called t make it equal 25
-#init a variable called n make it 7
-
-#print out t%n and t//n
-#what do you think these operators do?
-
+# #init a var called t make it equal 25
+# #init a variable called n make it 7
+# 
+# #print out t%n and t//n
+# #what do you think these operators do?
+# 
