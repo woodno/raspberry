@@ -1,7 +1,15 @@
 from machine import PWM, Pin
 import time # Import time library which lets us use the sleep command
 
-
+#Blink the onboard led a few times to verify connection
+led = Pin("LED", Pin.OUT) # Set up the onboard LED
+i = 0
+while i < 2:
+    led.value(1)  # Turn the LED ON
+    time.sleep(2) # Go to sleep for 2 seconds
+    led.value(0)  # Turn the LED OFF
+    time.sleep(2) # Go to sleep for 2 seconds
+    i = i + 1
 #This program runs a self test on the car on startup
 
 #Function defs and constant defs that use no GPIO Function

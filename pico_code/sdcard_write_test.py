@@ -20,19 +20,10 @@ print("Starting first write")
 #TODO Remove the next line
 #adc = ADC(0)
 with open('/sd/testData.txt', "w") as f:
-    #TODO Remove the while loop we only want to write something
+    t = time.ticks_ms()/1000
+    f.write(str(t)) # Write time sample was taken in seconds
+    f.write(' ') # A space
+    f.write("Some junk")
+    f.write('\n') # A new line
+    f.flush() # Force writing of buffered data to the SD card
     
-    while True:
-        #TODO remove the next line
-        #x = adc.read_u16() # Replace this line with a sensor reading of your choosing
-        t = time.ticks_ms()/1000
-        f.write(str(t)) # Write time sample was taken in seconds
-        f.write(' ') # A space
-        #TODO Remove the next line
-        #f.write(str(x)) # Write sample data
-        f.write("Some junk")
-        f.write('\n') # A new line
-        f.flush() # Force writing of buffered data to the SD card
-        #TODO Remove the next line
-        #print(t, x)
-        time.sleep_ms(500)
