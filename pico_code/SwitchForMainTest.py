@@ -1,4 +1,4 @@
-#TODO Adapt this code to stop main.py with a switch.
+#TODO Adapt this code to toggle main.py blinking with a switch.
 
 import machine
 import sys

@@ -51,10 +51,10 @@ pwm_enable_servo.freq(1150)
 #Pin 12, 13 are also GND that can be used to ground the external power supply or Pico
 #Pin 4,5,12 and 13 are internally connected so can be used for any ground. 
 #Pin 6 = Control2 lead of a normal motor 
-#Pin 7 = = GPIO 5
+#Pin 7 = = GPIO 5 Input1 servo
 #Pin 8 (Vs) =  9V on power supply (Supplies power to the motor)
 #Pin 9 = GPIO 10 (Enable servo)
-#Pin 10 = GPIO 6
+#Pin 10 = GPIO 6 Input2 servo
 #Pin 11 = Control1 cable on the lego servo motor
 #Pin 14 = Control2 cable on the lego servo motor
 #Pin 15 = GPIO 7  
