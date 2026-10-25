@@ -62,7 +62,7 @@ while i < 30:
            
     # Small delay
     time.sleep(0.5)
-    
+     
 with open('/sd/testData'+timestr+'.txt', "a") as f:
     f.write ("</trkseg>\n")
     f.write ("</trk>\n")
