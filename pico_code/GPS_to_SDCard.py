@@ -1,0 +1,116 @@
+#Imports
+from machine import Pin, UART, SPI
+import time
+# This import needs to be put on the pico
+# Its found at
+# https://github.com/woodno/raspberry/blob/master/pico_code/lib/gps_parser.py
+# It needs to go in the lib folder of the pico
+import gps_parser
+# sdcard import needs to be put on the pico
+# Its found at
+# https://github.com/woodno/raspberry/blob/master/pico_code/lib/sdcard.py
+# It needs to go in the lib folder of the pico
+import sdcard, uos
+
+#Constants
+BUTTON_PIN = 16
+PRESSED = 0
+NOT_PRESSED = 1
+SLEEP_TIME = 0.1
+
+#Set up all the hardware connections
+button = machine.Pin(BUTTON_PIN, machine.Pin.IN, machine.Pin.PULL_UP)
+led = Pin("LED", Pin.OUT) # Set up the onboard LED
+
+#Set up the uart connection between the GPS module and the pico
+#This uart connection is set up from the perspective of the pico
+#The TX pin on the GPS unit goes to the RX pin on the pico
+#So it goes to the 1 pin
+#The RX pin on the GPS unit goes to the TX pin on the pico
+#So it goes to the 0 pin
+#There are two UARTs, UART0 and UART1. UART0 can be mapped
+#to GPIO 0/1, 12/13 and 16/17, and UART1 to GPIO 4/5 and 8/9
+uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
+# Create a GPS reader object
+gps = gps_parser.GPSReader(uart)
+#Set up the SD Card connections
+#The master in this case is the pico.
+#So the pin 15 on the pico goes to the mosi pin on the sdcard module
+spi = SPI(1,sck=Pin(14), mosi=Pin(15), miso=Pin(12))
+cs = Pin(13)
+sd = sdcard.SDCard(spi, cs)
+uos.mount(sd, '/sd')
+
+
+def initilizeFile():
+    timeStr = str (time.time())
+    output = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    output += "<gpx version=\"1.0\" creator=\"picoExp\" xmlns=\"http://www.topografix.com/GPX/1/0\">\n"
+    output += "<trk>\n"
+    output += "<name>Car Track " + timeStr + "</name>\n"
+    output += "<trkseg>\n"
+    with open('/sd/testData'+timeStr+'.txt', "w") as f:
+        f.write(output)
+    return timeStr
+
+def recordTrackPoint(timeStr):
+    gps_data = gps.get_data()
+    if (gps_data.has_fix):
+        dateSplit = gps_data.date.split("/")
+        print("Has fix ", gps_data.has_fix, "lat ", gps_data.latitude, "lon ",
+          gps_data.longitude, "ele ", gps_data.altitude, "time ", gps_data.time,
+          "Date ", gps_data.date, "Speed_Knots ", gps_data.speed_knots  )
+        with open('/sd/testData'+timeStr+'.txt', "a") as f:
+            f.write("<trkpt lat=\""+ str(gps_data.latitude) + "\" lon=\""
+                    + str(gps_data.longitude) +"\">\n")
+            f.write("<ele>"+ str(gps_data.altitude) + "</ele>\n")
+                    
+            f.write("<time>" + dateSplit[2] + "-" + dateSplit[1] + "-"
+                    + dateSplit[0] + "T" + gps_data.time +"Z</time>\n")
+            f.write("</trkpt>\n")
+def closeFile(timeStr):
+    with open('/sd/testData'+timeStr+'.txt', "a") as f:
+        f.write ("</trkseg>\n")
+        f.write ("</trk>\n")
+        f.write ("</gpx>")
+    
+
+isRecording = False
+#is one unit of blinking
+isLedOn = False
+
+
+isTriggerReset = True
+try:
+    while True:
+        if button.value() == NOT_PRESSED:
+            isTriggerReset = True
+        #isTriggerReset pevents one
+        #push of the switch being
+        #recorded as multipe toggles.
+        if button.value() == PRESSED and isTriggerReset:
+            isRecording = not isRecording
+            isTriggerReset = False
+            if isRecording:
+                #Not really needed
+                #Led would blink on second run
+                isLedOn = True
+                timeStr = initilizeFile()
+            else:
+                #makes sure led is left in an off state
+                led.value(0)
+                closeFile(timeStr)
+        
+        if isRecording:
+            led.value(isLedOn)  # Turn the LED ON
+            recordTrackPoint(timeStr)
+            isLedOn = not isLedOn
+        
+            
+            
+            
+        time.sleep(SLEEP_TIME) 
+
+finally:
+	led.value(0)
+	led = Pin("LED", Pin.IN) 
