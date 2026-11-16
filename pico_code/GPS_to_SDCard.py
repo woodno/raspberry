@@ -11,7 +11,8 @@ import gps_parser
 # https://github.com/woodno/raspberry/blob/master/pico_code/lib/sdcard.py
 # It needs to go in the lib folder of the pico
 import sdcard, uos
-
+#Used for splitting time string
+import re
 #Constants
 BUTTON_PIN = 16
 PRESSED = 0
@@ -47,6 +48,18 @@ uos.mount(sd, '/sd')
 #Hold off the initialization until a datetime has been
 #picked up from the gps
 def initilizeFile():
+    while not isFirstGPSFixReceived
+        gps_data = gps.get_data()
+        if (gps_data.has_fix):
+            isFirstGPSFixReceived = True
+            dateSplit = gps_data.date.split("/")
+            timeSplit = re.split(r"[:.]", timeString)
+            rtc = machine.RTC()
+            # Format: (year, month, day, weekday, hours, minutes, seconds, subseconds)
+            rtc.datetime(int(dateSplit[2]), int(dateSplit[1]), int(dateSplit[0]),
+                         0, int(timeSplit[0]), int(timeSplit[1]), int(timeSplit[2]), 0)
+        time.sleep(SLEEP_TIME)    
+        
     timeStr = str (time.time())
     output = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     output += "<gpx version=\"1.1\" creator=\"U3ANoel\" xmlns=\"http://www.topografix.com/GPX/1/1\">\n"
@@ -87,7 +100,7 @@ isLedOn = False
 isTriggerReset = True
 #TODO Set a variable to hold when the
 #first fix is achieved
-#isFirstGPSFixReceived = False
+isFirstGPSFixReceived = False
 try:
     while True:
         if button.value() == NOT_PRESSED:
