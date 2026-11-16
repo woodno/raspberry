@@ -41,11 +41,15 @@ cs = Pin(13)
 sd = sdcard.SDCard(spi, cs)
 uos.mount(sd, '/sd')
 
-
+#TODO Set the Real Time Clock to the correct time and date to
+# Get the correct modified date on the file
+#Use code in SetPicoClock.py
+#Hold off the initialization until a datetime has been
+#picked up from the gps
 def initilizeFile():
     timeStr = str (time.time())
     output = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    output += "<gpx version=\"1.0\" creator=\"picoExp\" xmlns=\"http://www.topografix.com/GPX/1/0\">\n"
+    output += "<gpx version=\"1.1\" creator=\"U3ANoel\" xmlns=\"http://www.topografix.com/GPX/1/1\">\n"
     output += "<trk>\n"
     output += "<name>Car Track " + timeStr + "</name>\n"
     output += "<trkseg>\n"
@@ -81,6 +85,9 @@ isLedOn = False
 
 
 isTriggerReset = True
+#TODO Set a variable to hold when the
+#first fix is achieved
+#isFirstGPSFixReceived = False
 try:
     while True:
         if button.value() == NOT_PRESSED:
