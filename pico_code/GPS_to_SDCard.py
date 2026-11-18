@@ -1,3 +1,12 @@
+#Usage
+#Two 0.5 sec onboard led blinks tell you the power is on
+#Wait till the red GPS module onboard led blinks
+#Then you can start recording
+#Push and hold the button till you get a 0.1 sec
+#Blink on the onboard led
+#This tells you the recording to the SDCard has started.
+#Before powering off always push and hold the button to end the
+#recording and close off the file
 #Imports
 from machine import Pin, UART, SPI
 import time
@@ -22,6 +31,16 @@ SLEEP_TIME = 0.1
 #Set up all the hardware connections
 button = machine.Pin(BUTTON_PIN, machine.Pin.IN, machine.Pin.PULL_UP)
 led = Pin("LED", Pin.OUT) # Set up the onboard LED
+
+#Let us know the power is on with 2 blinks
+led.value(True)
+time.sleep(0.5)
+led.value(False)
+time.sleep(0.5)
+led.value(True)
+time.sleep(0.5)
+led.value(False)
+
 
 #Set up the uart connection between the GPS module and the pico
 #This uart connection is set up from the perspective of the pico
@@ -62,9 +81,11 @@ def initilizeFile():
         
     timeStr = str (time.time())
     output = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    output += "<gpx version=\"1.1\" creator=\"U3ANoel\" xmlns=\"http://www.topografix.com/GPX/1/1\">\n"
+    output += "<gpx version=\"1.1\" creator=\"U3ANoel\" xmlns=\"http://www.topografix.com/GPX/1/1\"\n"
+    output += "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
+    output += "xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">\n"
     output += "<trk>\n"
-    output += "<name>Car Track " + timeStr + "</name>\n"
+    output += "<name>Record Track " + timeStr + "</name>\n"
     output += "<trkseg>\n"
     with open('/sd/testData'+timeStr+'.txt', "w") as f:
         f.write(output)
