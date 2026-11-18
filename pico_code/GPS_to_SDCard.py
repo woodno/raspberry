@@ -1,3 +1,12 @@
+#Usage
+#Two 0.5 sec onboard led blinks tell you the power is on
+#Wait till the red GPS module onboard led blinks
+#Then you can start recording
+#Push and hold the button till you get a 0.1 sec
+#Blink on the onboard led
+#This tells you the recording to the SDCard has started.
+#Before powering off always push and hold the button to end the
+#recording and close off the file
 #Imports
 from machine import Pin, UART, SPI
 import time
@@ -11,7 +20,9 @@ import gps_parser
 # https://github.com/woodno/raspberry/blob/master/pico_code/lib/sdcard.py
 # It needs to go in the lib folder of the pico
 import sdcard, uos
-
+#Used for splitting time string
+#Found it did not work on pico.
+#import re
 #Constants
 BUTTON_PIN = 16
 PRESSED = 0
@@ -21,6 +32,16 @@ SLEEP_TIME = 0.1
 #Set up all the hardware connections
 button = machine.Pin(BUTTON_PIN, machine.Pin.IN, machine.Pin.PULL_UP)
 led = Pin("LED", Pin.OUT) # Set up the onboard LED
+
+#Let us know the power is on with 2 blinks
+led.value(True)
+time.sleep(0.5)
+led.value(False)
+time.sleep(0.5)
+led.value(True)
+time.sleep(0.5)
+led.value(False)
+
 
 #Set up the uart connection between the GPS module and the pico
 #This uart connection is set up from the perspective of the pico
@@ -46,12 +67,14 @@ uos.mount(sd, '/sd')
 #Use code in SetPicoClock.py
 #Hold off the initialization until a datetime has been
 #picked up from the gps
-def initilizeFile():
+def initilizeFile(): 
     timeStr = str (time.time())
     output = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    output += "<gpx version=\"1.1\" creator=\"U3ANoel\" xmlns=\"http://www.topografix.com/GPX/1/1\">\n"
+    output += "<gpx version=\"1.1\" creator=\"U3ANoel\" xmlns=\"http://www.topografix.com/GPX/1/1\"\n"
+    output += "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
+    output += "xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">\n"
     output += "<trk>\n"
-    output += "<name>Car Track " + timeStr + "</name>\n"
+    output += "<name>Record Track " + timeStr + "</name>\n"
     output += "<trkseg>\n"
     with open('/sd/testData'+timeStr+'.txt', "w") as f:
         f.write(output)
@@ -87,9 +110,31 @@ isLedOn = False
 isTriggerReset = True
 #TODO Set a variable to hold when the
 #first fix is achieved
-#isFirstGPSFixReceived = False
+isFirstGPSFixReceived = False
+while not isFirstGPSFixReceived:
+    gps_data = gps.get_data()
+    if (gps_data.has_fix):
+        isFirstGPSFixReceived = True
+        dateSplit = gps_data.date.split("/")
+        timeSplit = gps_data.time.split(".")
+        timeSplitHMS = timeSplit[0].split(":")
+        #timeSplit = re.split(r"[:.]", gps_data.time)
+        rtc = machine.RTC()
+        # Format:tuple of (year, month, day, weekday, hours, minutes, seconds, subseconds)
+# #         print ("int(dateSplit[2])",int(dateSplit[2]))
+# #         print("int(dateSplit[1])",int(dateSplit[1]))
+# #         print("int(dateSplit[0])",int(dateSplit[0]))
+# #         print("int(timeSplitHMS[0])",int(timeSplitHMS[0]))
+# #         print("int(timeSplitHMS[1])",int(timeSplitHMS[1]))
+# #         print("int(timeSplitHMS[2])", int(timeSplitHMS[2]))
+        rtc.datetime((int(dateSplit[2]), int(dateSplit[1]), int(dateSplit[0]), 0,
+                      int(timeSplitHMS[0]), int(timeSplitHMS[1]), int(timeSplitHMS[2]), 0))
+    time.sleep(SLEEP_TIME)
+    print("no fix yet")
+print ("fix done")
 try:
     while True:
+            
         if button.value() == NOT_PRESSED:
             isTriggerReset = True
         #isTriggerReset pevents one
@@ -121,3 +166,4 @@ try:
 finally:
 	led.value(0)
 	led = Pin("LED", Pin.IN) 
+
