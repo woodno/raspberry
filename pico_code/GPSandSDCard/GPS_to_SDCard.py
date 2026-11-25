@@ -76,7 +76,7 @@ def initilizeFile():
     output += "<trk>\n"
     output += "<name>Record Track " + timeStr + "</name>\n"
     output += "<trkseg>\n"
-    with open('/sd/testData'+timeStr+'.txt', "w") as f:
+    with open('/sd/testData'+timeStr+'.gpx', "w") as f:
         f.write(output)
     return timeStr
 
@@ -87,7 +87,7 @@ def recordTrackPoint(timeStr):
         print("Has fix ", gps_data.has_fix, "lat ", gps_data.latitude, "lon ",
           gps_data.longitude, "ele ", gps_data.altitude, "time ", gps_data.time,
           "Date ", gps_data.date, "Speed_Knots ", gps_data.speed_knots  )
-        with open('/sd/testData'+timeStr+'.txt', "a") as f:
+        with open('/sd/testData'+timeStr+'.gpx', "a") as f:
             f.write("<trkpt lat=\""+ str(gps_data.latitude) + "\" lon=\""
                     + str(gps_data.longitude) +"\">\n")
             f.write("<ele>"+ str(gps_data.altitude) + "</ele>\n")
@@ -96,7 +96,7 @@ def recordTrackPoint(timeStr):
                     + dateSplit[0] + "T" + gps_data.time +"Z</time>\n")
             f.write("</trkpt>\n")
 def closeFile(timeStr):
-    with open('/sd/testData'+timeStr+'.txt', "a") as f:
+    with open('/sd/testData'+timeStr+'.gpx', "a") as f:
         f.write ("</trkseg>\n")
         f.write ("</trk>\n")
         f.write ("</gpx>")
