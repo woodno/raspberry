@@ -1,3 +1,6 @@
-# raspberry
-holds code for raspberry pi
-Test of new computer
+To overwrite changes in your local repository...
+From....
+https://share.google/aimode/QNH2JbVGRSDVJMnW2
+Do.....
+git fetch origin
+git reset --hard origin/master
