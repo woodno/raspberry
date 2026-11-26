@@ -1,10 +1,10 @@
 from machine import Pin # Import pin from the machine library
 import time # Import time library which lets us use the sleep command
 
-#p2 = Pin(2, Pin.IN, Pin.PULL_UP)
+p2 = Pin(2, Pin.IN, Pin.PULL_UP)
 #p2 = Pin(2, Pin.IN, Pin.PULL_DOWN)
 
-p2 = Pin(2, Pin.IN)
+#p2 = Pin(2, Pin.IN)
 i = 0
 while (True):
     while (p2.value() == 0):

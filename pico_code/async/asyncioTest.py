@@ -4,20 +4,33 @@
 import asyncio
 import time
 
+def printTimeNow():
+    year, month, day, hour, minute, second, _, _ = time.localtime()
+    # ISO-style timestamp
+    timestamp = f"{year:04d}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"
+    print(timestamp)
+    
+
 async def say_after(delay, what):
     await asyncio.sleep(delay)
     print(what)
+    printTimeNow()
 ##Example 1 The await causes the function to be called and await till after it finishes
 ##  Therefore expected to take 4 seconds
 
-
+#TODO get rid of all time.strftime calls.  They only work on regular python
 # async def main():
-#     print(f"started at {time.strftime('%X')}")
+#     #strftime can only be used on python micropython does not work
+#     #print(f"started at {time.strftime('%X')}")
+#     
 # 
+#     printTimeNow()
 #     await say_after(2, 'hello')
 #     await say_after(2, 'world')
+#     year, month, day, hour, minute, second, _, _ = time.localtime()
 # 
-#     print(f"finished at {time.strftime('%X')}")
+#     printTimeNow()
+    #print(f"finished at {time.strftime('%X')}")
 
 
 #Example 2  Create Task allows functions to run concurrently
@@ -58,19 +71,21 @@ async def say_after(delay, what):
 
 #Example 4 This example does allow task1 and task2 to be called
 #In this case you can't be sure what task finishes first
-# async def main():
-#     task1 = asyncio.create_task(
-#         say_after(2, 'hello'))
-# 
-#     task2 = asyncio.create_task(
-#         say_after(2, 'world'))
-# 
-#     print(f"started at {time.strftime('%X')}")
-# 
-#     await asyncio.sleep(4)
-# 
-#     
-#     print(f"finished at {time.strftime('%X')}")
+async def main():
+    task1 = asyncio.create_task(
+        say_after(2, 'hello'))
+
+    task2 = asyncio.create_task(
+        say_after(2, 'world'))
+
+    #print(f"started at {time.strftime('%X')}")
+    printTimeNow()
+
+    await asyncio.sleep(4)
+    printTimeNow()
+
+    
+    #print(f"finished at {time.strftime('%X')}")
     
 #Example 5 This example does allow task1 and task2 to be called
 #But because control is allowed to return to the main program
@@ -93,17 +108,17 @@ async def say_after(delay, what):
 #Example 6 This example allows task1 and task2 to complete
 #because they are given a series of 1 second slices of time to work
 #Notice the printing of the finish time never occurs as the program is always waiting.
-async def main():
-    task1 = asyncio.create_task(
-        say_after(2, 'hello'))
-
-    task2 = asyncio.create_task(
-        say_after(2, 'world'))
-
-    print(f"started at {time.strftime('%X')}")
-    while True:
-        await asyncio.sleep(1)
-
-    
-    print(f"finished at {time.strftime('%X')}")  
+# async def main():
+#     task1 = asyncio.create_task(
+#         say_after(2, 'hello'))
+# 
+#     task2 = asyncio.create_task(
+#         say_after(2, 'world'))
+# 
+#     print(f"started at {time.strftime('%X')}")
+#     while True:
+#         await asyncio.sleep(1)
+# 
+#     
+#     print(f"finished at {time.strftime('%X')}")  
 asyncio.run(main())
